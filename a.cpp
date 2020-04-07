@@ -57,7 +57,9 @@ int main(int argc, char **argv)
 
     while(1){
         image = cvQueryFrame(videoCapture);
-		gray = cvCreateImage(cvGetSize(image), IPL_DEPTH_8U, 1);
+	gray = cvCreateImage(cvGetSize(image), IPL_DEPTH_8U, 1);
+	cvRectangle(image,cvPoint(0,0),cvPoint(frameSize.width,frameSize.height * 0.5),
+		   cvScalar(0, 0, 0),-1);
         cvInRangeS(image, cvScalar(150, 150, 150), cvScalar(255, 255, 255), gray);
         prob = cvCreateImage(cvGetSize(gray), IPL_DEPTH_8U, 1);
         prob = cvCloneImage(gray);
@@ -88,7 +90,7 @@ int main(int argc, char **argv)
 
 			bool isOneLine = false;
 			if((theta > 0.3) && (theta < 2.8)){
-				break;		
+				continue;		
 			} 
 			for (int i = 0; i<lineList.size(); ++i)
 			{
